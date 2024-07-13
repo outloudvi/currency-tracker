@@ -36,4 +36,4 @@ export async function updateCurrencyList() {
   await sendMessage(botToken, chatId, textMessage)
 }
 
-// Deno.cron('Update currency', '1 * * * *', updateCurrencyList)
+Deno.cron('Update currency', '1 * * * *', updateCurrencyList)

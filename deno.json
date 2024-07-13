@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "dayjs/": "https://cdn.skypack.dev/dayjs@1.11.11/"
+  }
+}

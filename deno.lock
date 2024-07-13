@@ -1,0 +1,13 @@
+{
+  "version": "3",
+  "remote": {
+    "https://cdn.skypack.dev/-/dayjs@v1.11.11-L44xhyzaY7f9Pv0RSbAG/dist=es2019,mode=imports/optimized/dayjs.js": "596a73ea537b1d5350ff8ccdb35fdb86ed5b8c50112f8d2ceabeda4ab33f0458",
+    "https://cdn.skypack.dev/-/dayjs@v1.11.11-L44xhyzaY7f9Pv0RSbAG/dist=es2019,mode=imports/unoptimized/plugin/customParseFormat.js": "fce1e7aef25f4b2c604f24ecc2d7cc808b66be02b80a52ac8611905036b9d6ed",
+    "https://cdn.skypack.dev/-/dayjs@v1.11.11-L44xhyzaY7f9Pv0RSbAG/dist=es2019,mode=imports/unoptimized/plugin/timezone.js": "f45d03334be97e95c2a4ba97afc401d61b531f6d34e0de08f884f27550f679f0",
+    "https://cdn.skypack.dev/-/dayjs@v1.11.11-L44xhyzaY7f9Pv0RSbAG/dist=es2019,mode=imports/unoptimized/plugin/utc.js": "1885f944b6b0d7646f190b5526d0f09c0c1b8be61cf7fdf34b9403857e3da046",
+    "https://cdn.skypack.dev/dayjs@1.11.11/": "8aadf963fcc5be34fb0e6474a9d74ec91d38cbe6553983212aae9d0ca26e4fa9",
+    "https://cdn.skypack.dev/dayjs@1.11.11/plugin/customParseFormat": "5d99c568eced3198a831c7c1caecd24b8cc107ca31075eee6a836381b9a6da22",
+    "https://cdn.skypack.dev/dayjs@1.11.11/plugin/timezone": "8c1e9212de40d2afb3e7209679681c9c573a4fb7540ac58df45a7304a6389779",
+    "https://cdn.skypack.dev/dayjs@1.11.11/plugin/utc": "8b79f2c1d584014858bf80961a1b077a6edfecd8f41b1a0bdd2300534b70b4bc"
+  }
+}

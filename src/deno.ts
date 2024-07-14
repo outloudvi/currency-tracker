@@ -1,10 +1,12 @@
 import cmb from './bank/cmb.ts'
+import boc from './bank/boc.ts'
 import dayjs from './tools/day.ts'
 import { sendMessage } from './tools/telegram.ts'
 import invariant from './tools/invariant.ts'
 
 const CurrencyList = {
   招商银行: cmb.JPY(),
+  中国银行: boc.JPY(),
 }
 
 export async function updateCurrencyList() {

@@ -1,5 +1,14 @@
 {
+  "compilerOptions": {
+    "lib": [
+      "deno.ns",
+      "dom",
+      "dom.iterable",
+      "dom.asynciterable"
+    ]
+  },
   "imports": {
-    "dayjs/": "https://cdn.skypack.dev/dayjs@1.11.11/"
+    "dayjs/": "https://cdn.skypack.dev/dayjs@1.11.11/",
+    "jsdom": "https://esm.sh/jsdom@24.1.0"
   }
 }

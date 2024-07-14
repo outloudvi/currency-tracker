@@ -26,7 +26,7 @@ export async function updateCurrencyList() {
       const { currency, date, rate } = result.value
       resultLines.push(
         `${bankName}: ${(rate * 100).toFixed(4)} (${dayjs(date).format(
-          'HH:m:s'
+          'HH:mm:ss'
         )})`
       )
     }

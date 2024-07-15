@@ -34,7 +34,7 @@ export async function updateCurrencyList() {
     }
   }
 
-  const textMessage = resultLines.join('<br/>')
+  const textMessage = resultLines.join('\n')
   await sendMessage(botToken, chatId, textMessage)
 }
 

@@ -86,7 +86,7 @@ export async function sendMessage(
 ) {
   const body = {
     text: message,
-    parse_mode: 'MarkdownV2',
+    parse_mode: 'HTML',
     ...(replyToMessageId
       ? {
           reply_parameters: {

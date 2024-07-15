@@ -31,7 +31,7 @@ const getCurrency = async <T extends string>(
 
   return {
     currency: currencyMark,
-    rate: Number((line.children[4] as HTMLTableCellElement).innerHTML),
+    rate: Number((line.children[4] as HTMLTableCellElement).innerHTML) / 100,
     date: dayjs(
       `${(line.children[6] as HTMLTableCellElement).innerHTML} ${
         (line.children[7] as HTMLTableCellElement).innerHTML

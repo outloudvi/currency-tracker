@@ -8,7 +8,7 @@
     ]
   },
   "imports": {
-    "dayjs/": "https://cdn.skypack.dev/dayjs@1.11.11/",
-    "jsdom": "https://esm.sh/jsdom@24.1.0"
+    "dayjs": "npm:dayjs@^1.11.18",
+    "jsdom": "npm:jsdom@^27.0.0"
   }
 }

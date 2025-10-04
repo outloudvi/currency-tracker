@@ -6,17 +6,14 @@ const getCurrency = async <T extends string>(
   currencyMark: T,
   currencyName: string
 ): Promise<CurrencyResult<T>> => {
-  const resultHtml = await fetch(
-    'https://thingproxy.freeboard.io/fetch/https://www.boc.cn/sourcedb/whpj/',
-    {
-      headers: {
-        'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; rv:130.0) Gecko/20100101 Firefox/130.0',
-      },
-      referrer: 'https://www.boc.cn/',
-      method: 'GET',
-    }
-  ).then((x) => x.text())
+  const resultHtml = await fetch('https://www.boc.cn/sourcedb/whpj/', {
+    headers: {
+      'User-Agent':
+        'Mozilla/5.0 (Windows NT 10.0; rv:130.0) Gecko/20100101 Firefox/130.0',
+    },
+    referrer: 'https://www.boc.cn/',
+    method: 'GET',
+  }).then((x) => x.text())
 
   const {
     window: { document },

@@ -32,9 +32,9 @@ export async function updateCurrencyList() {
       const { date, rate } = result.value
       resultLines.push({
         text: `${bankName}: ${(rate * 100).toFixed(4)} (${dayjs(date).format(
-          'HH:mm:ss'
+          'HH:mm:ss',
         )})`,
-        order: rate,
+        order: i,
       })
     }
   }

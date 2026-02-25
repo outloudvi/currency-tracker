@@ -14,7 +14,7 @@ export type CurrencyResult<Curr extends string> = {
   /**
    * Currency update date.
    */
-  date: Date
+  date?: Date
 }
 
 export type CurrencyGetterList<Currs extends string> = {

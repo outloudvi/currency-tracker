@@ -1,41 +1,57 @@
 import dayjs from '../tools/day.ts'
 import { CurrencyGetterList, CurrencyResult } from '../types.ts'
+import { JSDOM } from 'jsdom'
 
 const getCurrency = async <T extends string>(
   currencyMark: T,
-  currencyName: string
+  currencyName: string,
 ): Promise<CurrencyResult<T>> => {
-  const response: {
-    bid: string
-    ask: string
-    timestamp: string
-  }[] = await fetch('https://www.bochk.com/api/cms/rates', {
-    headers: {
-      'User-Agent':
-        'Mozilla/5.0 (Windows NT 10.0; rv:130.0) Gecko/20100101 Firefox/130.0',
+  const resultHtml = await fetch(
+    'https://www.bochk.com/whk/rates/exchangeRatesHKD/exchangeRatesHKD-input.action?lang=hk',
+    {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; rv:130.0) Gecko/20100101 Firefox/130.0',
+      },
+      referrer: 'https://www.bochk.com/',
+      method: 'GET',
     },
-    referrer: 'https://www.bochk.com/',
-    method: 'GET',
-  })
-    .then((x) => x.json())
-    .then((x) => x.rates)
+  ).then((x) => x.text())
 
-  const currencyLine = response.find((x) => x.currencyCode === currencyName)
-  if (!currencyLine) {
-    throw new Error(`No ${currencyName} found from BOCHK`)
+  const {
+    window: { document },
+  } = new JSDOM(resultHtml)
+
+  const line = [
+    ...(document.querySelector('table.import-data > tbody')?.children ?? []),
+  ].find((x) => x.innerHTML.includes(currencyName))
+  if (!line) {
+    throw new Error(`No ${currencyName} found for BOCHK`)
   }
 
-  const rate = (Number(currencyLine.bid) + Number(currencyLine.ask)) / 2
-
-  return {
+  const ret: CurrencyResult<T> = {
     currency: currencyMark,
-    rate: rate,
-    date: dayjs(currencyLine.timestamp).tz('Asia/Hong_Kong').toDate(),
+    rate: Number((line.children[2] as HTMLTableCellElement).innerHTML),
   }
+
+  const timeTag = [...document.querySelectorAll('table b')].find((x) =>
+    x.textContent.includes('資料更新於香港時間：'),
+  )
+
+  if (timeTag) {
+    ret.date = dayjs(
+      timeTag.textContent.split('：')[1].trim(),
+      'YYYY/MM/DD HH:mm:ss',
+    )
+      .tz('Asia/Hong_Kong')
+      .toDate()
+  }
+
+  return ret
 }
 
-const methods: CurrencyGetterList<'HKD'> = {
-  HKD: () => getCurrency('HKD', 'JPY'),
+const methods: CurrencyGetterList<'JPYHKD'> = {
+  JPYHKD: () => getCurrency('JPYHKD', '日圓'),
 }
 
 export default methods

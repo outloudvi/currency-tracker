@@ -8,7 +8,7 @@
     ]
   },
   "imports": {
-    "dayjs": "npm:dayjs@^1.11.18",
-    "jsdom": "npm:jsdom@^27.0.0"
+    "dayjs": "npm:dayjs@^1.11.20",
+    "jsdom": "npm:jsdom@^29.0.1"
   }
 }

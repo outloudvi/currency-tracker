@@ -1,6 +1,6 @@
 import cmb from './bank/cmb.ts'
 import boc from './bank/boc.ts'
-import bochk from './bank/bochk.ts' // Added BOCHK import
+import bochk from './bank/bochk.ts'
 import dayjs from './tools/day.ts'
 import { sendMessage } from './tools/telegram.ts'
 import invariant from './tools/invariant.ts'

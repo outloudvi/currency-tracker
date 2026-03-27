@@ -21,7 +21,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-const isProduction: boolean = Deno.env.get('NODE_ENV') === 'production'
+// Cloudflare Workers don't have process.env, so we'll assume production by default
+const isProduction: boolean = true
 const prefix: string = 'Invariant failed'
 
 /**
@@ -46,7 +47,7 @@ export default function invariant(
    * Can provide a string, or a function that returns a string for cases where
    * the message takes a fair amount of effort to compute
    */
-  message?: string | (() => string)
+  message?: string | (() => string),
 ): asserts condition {
   if (condition) {
     return

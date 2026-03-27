@@ -1,6 +1,6 @@
-import dayjs from '../tools/day.ts'
-import { CurrencyGetterList, CurrencyResult } from '../types.ts'
-import { JSDOM } from 'jsdom'
+import dayjs from '../tools/day'
+import { CurrencyGetterList, CurrencyResult } from '../types'
+import { parseHTML } from 'linkedom'
 
 const getCurrency = async <T extends string>(
   currencyMark: T,
@@ -12,26 +12,24 @@ const getCurrency = async <T extends string>(
       headers: {
         'User-Agent':
           'Mozilla/5.0 (Windows NT 10.0; rv:130.0) Gecko/20100101 Firefox/130.0',
+        Referrer: 'https://www.bochk.com/',
       },
-      referrer: 'https://www.bochk.com/',
       method: 'GET',
     },
   ).then((x) => x.text())
 
-  const {
-    window: { document },
-  } = new JSDOM(resultHtml)
+  const { document } = parseHTML(resultHtml)
 
-  const line = [
-    ...(document.querySelector('table.import-data > tbody')?.children ?? []),
-  ].find((x) => x.innerHTML.includes(currencyName))
+  const line = [...(document.querySelectorAll('tr') ?? [])].find((x) =>
+    x.innerHTML.includes(currencyName),
+  )
   if (!line) {
     throw new Error(`No ${currencyName} found for BOCHK`)
   }
 
   const ret: CurrencyResult<T> = {
     currency: currencyMark,
-    rate: Number((line.children[2] as HTMLTableCellElement).innerHTML),
+    rate: Number((line.children[2] as any).innerHTML),
   }
 
   const timeTag = [...document.querySelectorAll('table b')].find((x) =>

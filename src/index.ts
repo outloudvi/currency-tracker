@@ -1,10 +1,12 @@
-import cmb from './bank/cmb.ts'
-import boc from './bank/boc.ts'
-import bochk from './bank/bochk.ts'
-import dayjs from './tools/day.ts'
-import { sendMessage } from './tools/telegram.ts'
-import invariant from './tools/invariant.ts'
-import { DisplayItem } from './types.ts'
+/// <reference types="@cloudflare/workers-types" />
+
+import cmb from './bank/cmb'
+import boc from './bank/boc'
+import bochk from './bank/bochk'
+import dayjs from './tools/day'
+import invariant from './tools/invariant'
+import { DisplayItem } from './types'
+import { sendMessage } from './tools/telegram'
 
 const CurrencyList = {
   招商银行: () => cmb.JPY(),
@@ -14,9 +16,9 @@ const CurrencyList = {
   '中銀香港 (HKD)': () => bochk.JPYHKD(),
 }
 
-export async function updateCurrencyList() {
-  const botToken = Deno.env.get('BOT_TOKEN')
-  const chatId = Deno.env.get('CHAT_ID')
+export async function updateCurrencyList(env: any) {
+  const botToken = env.BOT_TOKEN
+  const chatId = env.CHAT_ID
   invariant(botToken, 'No bot token')
   invariant(chatId, 'No chatId')
 
@@ -51,4 +53,8 @@ export async function updateCurrencyList() {
   await sendMessage(botToken, chatId, textMessage)
 }
 
-Deno.cron('Update currency', '1 * * * *', updateCurrencyList)
+export default {
+  async scheduled(event: ScheduledEvent, env: any, ctx: ExecutionContext) {
+    ctx.waitUntil(updateCurrencyList(env))
+  },
+}

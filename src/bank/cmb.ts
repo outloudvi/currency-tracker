@@ -1,9 +1,9 @@
-import dayjs from '../tools/day.ts'
-import { CurrencyGetterList, CurrencyResult } from '../types.ts'
+import dayjs from '../tools/day'
+import { CurrencyGetterList, CurrencyResult } from '../types'
 
 const getCurrency = async <T extends string>(
   currencyMark: T,
-  currencyName: string
+  currencyName: string,
 ): Promise<CurrencyResult<T>> => {
   const response: {
     ccyNbr: string
@@ -15,12 +15,12 @@ const getCurrency = async <T extends string>(
     headers: {
       'User-Agent':
         'Mozilla/5.0 (Windows NT 10.0; rv:130.0) Gecko/20100101 Firefox/130.0',
+      Referrer: 'https://fx.cmbchina.com/hq',
     },
-    referrer: 'https://fx.cmbchina.com/hq',
     method: 'GET',
   })
     .then((x) => x.json())
-    .then((x) => x.body)
+    .then((x) => (x as any).body)
 
   const currencyLine = response.find((x) => x.ccyNbr === currencyName)
   if (!currencyLine) {
@@ -32,7 +32,7 @@ const getCurrency = async <T extends string>(
     rate: Number(currencyLine.rtcOfr) / 100,
     date: dayjs(
       `${currencyLine.ratDat} ${currencyLine.ratTim}`,
-      'YYYY年MM月DD日 H:m:s'
+      'YYYY年MM月DD日 H:m:s',
     )
       .tz('Asia/Shanghai')
       .toDate(),

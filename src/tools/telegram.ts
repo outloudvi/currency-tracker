@@ -1,7 +1,7 @@
 async function tg(
   botToken: string,
   path: string,
-  formData?: FormData
+  formData?: FormData,
 ): Promise<any> {
   const requestUrl = `https://api.telegram.org/bot${botToken}/${path}`
   const fetchBase =
@@ -23,7 +23,7 @@ async function tg(
 async function tgJson(
   botToken: string,
   path: string,
-  data?: string
+  data?: string,
 ): Promise<any> {
   const requestUrl = `https://api.telegram.org/bot${botToken}/${path}`
   const fetchBase =
@@ -43,25 +43,28 @@ async function tgJson(
       console.debug('TG response:', x)
       return x
     })
+    .catch((x) => {
+      console.error('TG error:', x)
+    })
 }
 
 export function setupWebhook(
   botToken: string,
   url: string,
-  secretToken: string
+  secretToken: string,
 ) {
   return tg(
     botToken,
     `setWebhook?url=${encodeURIComponent(
-      url
-    )}&secret_token=${encodeURIComponent(secretToken)}`
+      url,
+    )}&secret_token=${encodeURIComponent(secretToken)}`,
   )
 }
 
 export async function changeAvatar(
   botToken: string,
   groupId: string,
-  avatarUrl: string
+  avatarUrl: string,
 ) {
   const photo = await fetch(avatarUrl).then((x) => x.blob())
   const formData = new FormData()
@@ -73,7 +76,7 @@ export async function changeAvatar(
 export async function deleteMessage(
   botToken: string,
   chatId: string,
-  messageId: string
+  messageId: string,
 ) {
   return tg(botToken, `deleteMessage?chat_id=${chatId}&message_id=${messageId}`)
 }
@@ -82,7 +85,7 @@ export async function sendMessage(
   botToken: string,
   chatId: string,
   message: string,
-  replyToMessageId?: number
+  replyToMessageId?: number,
 ) {
   const body = {
     text: message,

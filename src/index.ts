@@ -54,7 +54,7 @@ export async function updateCurrencyList(env: any) {
 }
 
 export default {
-  async scheduled(event: ScheduledEvent, env: any, ctx: ExecutionContext) {
+  async scheduled(_: ScheduledEvent, env: any, ctx: ExecutionContext) {
     ctx.waitUntil(updateCurrencyList(env))
   },
 }
